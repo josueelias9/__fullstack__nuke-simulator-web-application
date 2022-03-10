@@ -1,34 +1,43 @@
 
 // api url
-const api_url = "http://127.0.0.1:8000/aplicacion/casa/";
-//"https://reqres.in/api/products/3";
 
 // Defining async function
-async function getapi(url) {
+async function getapi() {
 
     // Storing response
-    const response = await fetch(url);
-
+    let response = await fetch("http://127.0.0.1:8000/aplicacion/casa/");
     // Storing data in form of JSON
-    var data = await response.json();
+    let data_json = await response.json();
 
-    console.log(data[0]);
+    console.log(data_json["features"][2]["geometry"]["coordinates"]);
 }
 // Calling that async function
 
-async function postapi(url){
+async function postapi() {
     data = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            punto: "donde caera la bomba",
-            bomba: "que bomba sera?"
-        })
+            type: "Feature",
+            properties: {
+                info: "llego este paquete del fron?",
+                color: "blue"
+            },
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    -4.0801699437494736,
+                    8.71055162951536
+                ]
+            }
+        }
+        )
     }
-    const respo = await fetch(url,data);
-    console.log("se ejecuto post");
+    let respo = await fetch("http://127.0.0.1:8000/aplicacion/casa/", data);
+    let data_json = await respo.json();
+    console.log(data_json);
 }
 
-// postapi(api_url);
+postapi();

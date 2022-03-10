@@ -5,9 +5,9 @@ from django.forms import CharField
 
 
 class Geometria(models.Model):
-    info = models.CharField(max_length=50, default='')
-    color = models.CharField(max_length=50, default='')
-    type = models.CharField(max_length=50, default='')
-    coordinates = models.TextField(default='')
+    class_info = models.CharField(max_length=50, default='')
+    class_color = models.CharField(max_length=50, default='')
+    class_type = models.CharField(max_length=50, default='Point')
+    class_coordinates = models.TextField(default='')
     
     

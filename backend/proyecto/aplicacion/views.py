@@ -18,7 +18,7 @@ class Vista(View):
 
     def get(self,request):
         listGet=list(Geometria.objects.values())
-        print(listGet)
+        #print(listGet)
         thisdict = {
             "type": "FeatureCollection",
         }
@@ -27,11 +27,11 @@ class Vista(View):
             miLista.append({
                 "type": "Feature",
                 "properties":{
-                    "color":a["color"],
-                    "info":a["info"]},
+                    "color":a["class_color"],
+                    "info":a["class_info"]},
                 "geometry":{
-                    "type":a["type"],
-                    "coordinates":json.loads(a["coordinates"])
+                    "type":a["class_type"],
+                    "coordinates":json.loads(a["class_coordinates"])
                     }
                 }
             ),
@@ -40,8 +40,22 @@ class Vista(View):
 
     def post(self,request):
         dictEntrada = json.loads(request.body)
-        Geometria.objects.create(nombre=dictEntrada['nombre'], coordenadas= dictEntrada['coordenadas'])
+        
+        Geometria.objects.create(
+            class_info = dictEntrada['properties']['info'], 
+            class_color = dictEntrada['properties']['color'], 
+            class_coordinates = dictEntrada['geometry']['coordinates'],
+            class_type = dictEntrada['geometry']['type'])
+        
         respuesta = {
             "mensaje": "Todo bien!"
+        }
+        return JsonResponse(dictEntrada)
+
+
+    def delete(self,request):
+        Geometria.objects.filter(id=7).delete()
+        respuesta = {
+            "mensaje": "Se borro :o"
         }
         return JsonResponse(respuesta)
