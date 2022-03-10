@@ -13,13 +13,15 @@
 ```
 # division
 ## front
+Las entradas son:
 - solo da un punto geografico
 - tipo de bomba
 ## back
-- los calgulos los hace el back
+- los calculos los hace el back
 ## base de datos
 - debe tener informacion de contorno de pais o continente
 ## calculos de funcion
+el orden seria el siguiente:
 - formula del circulo a partir del punto entregado por el front
 - obtener superficie circulo
 - realizar interseccion (circulo pais)
@@ -30,4 +32,12 @@
  sup. pais      sup. interseccion
 ------------- = -----------------
 # total de h.        # muertos
+```
+
+# informacion
+asi comentamos el codigo en el back
+```python
+# ========================================================
+# PRUEBA DE MODULO
+# ========================================================
 ```
