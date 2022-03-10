@@ -5,5 +5,5 @@ from django.forms import CharField
 
 
 class Geometria(models.Model):
-    nombre = CharField(max_length=50)
-    coordenadas = CharField(max_length=50)
+    nombre = models.CharField(max_length=50, default='')
+    coordenadas = models.CharField(max_length=50,default='')
