@@ -1,4 +1,5 @@
-from json import loads
+
+import json
 from urllib import request
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -17,10 +18,28 @@ class Vista(View):
 
     def get(self,request):
         listGet=list(Geometria.objects.values())
-        return JsonResponse(listGet,safe=False)
+        print(listGet)
+        thisdict = {
+            "type": "FeatureCollection",
+        }
+        miLista=[]
+        for a in listGet:
+            miLista.append({
+                "type": "Feature",
+                "properties":{
+                    "color":a["color"],
+                    "info":a["info"]},
+                "geometry":{
+                    "type":a["type"],
+                    "coordinates":json.loads(a["coordinates"])
+                    }
+                }
+            ),
+        thisdict["features"]=miLista
+        return JsonResponse(thisdict)
 
     def post(self,request):
-        dictEntrada = loads(request.body)
+        dictEntrada = json.loads(request.body)
         Geometria.objects.create(nombre=dictEntrada['nombre'], coordenadas= dictEntrada['coordenadas'])
         respuesta = {
             "mensaje": "Todo bien!"

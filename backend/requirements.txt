@@ -7,6 +7,7 @@ click-plugins==1.1.1
 cligj==0.7.2
 cycler==0.11.0
 Django==4.0.3
+django-cors-headers==3.11.0
 Fiona==1.8.21
 fonttools==4.29.1
 geopandas==0.10.2

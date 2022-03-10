@@ -2,6 +2,7 @@
 # MODULO
 # ========================================================
 from distutils.ccompiler import gen_lib_options
+import json
 import math
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
@@ -11,6 +12,7 @@ numero_de_lados_del_circulo = 0
 
 '''
 MACRO: En general las funciones:
+
 input: poligono / numero
 output: poligono / numero / boleano
 '''
@@ -31,6 +33,22 @@ def genera_circulo(radio):
         y = radio*math.sin(angulo*i)
         arreglo.append((x,y))
     return Polygon(arreglo)
+
+'''
+input: numero 
+output: lista [] 
+'''
+def genera_circulo_2(radio):
+    circulo = 2 * math.pi # angulo total de la circunferencia en radianes
+    angulo = 12
+    arreglo = list()
+    sec = numero_de_lados_del_circulo # numero de secciones que tiene el circulo
+    angulo = circulo / sec # tamaño de la seccion en radianes
+    for i in range(sec):
+        x = radio*math.cos(angulo*i)
+        y = radio*math.sin(angulo*i)
+        arreglo.append([x,y])
+    return arreglo
 
 '''
 input: poligono
@@ -96,7 +114,7 @@ def muertos(habi_tota, supe_inte, supe_pais):
 # ========================================================
 # PRUEBA DE MODULO
 # ========================================================
-# '''
+'''
 # usar el siguiente codigo de prueba para ver la funcionalidad de este modulo:
 
 # este es un poligono de prueba
