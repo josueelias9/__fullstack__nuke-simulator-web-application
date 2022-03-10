@@ -8,7 +8,7 @@ from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
 
 poligono_de_prueba = Polygon([(0, 5), (1, 1), (3, 0), (4, 6)])
-numero_de_lados_del_circulo = 30
+numero_de_lados_del_circulo = 20
 
 '''
 MACRO: En general las funciones:
@@ -45,10 +45,11 @@ def genera_circulo_2(latitud,longitud, radio):
     sec = numero_de_lados_del_circulo # numero de secciones que tiene el circulo
     angulo = circulo / sec # tamaño de la seccion en radianes
     for i in range(sec):
-        x_circulo = radio*math.cos(angulo*i)
-        y_circulo = radio*math.sin(angulo*i)
+        x_circulo = longitud + radio*math.cos(angulo*i)
+        y_circulo = latitud + radio*math.sin(angulo*i)
         arreglo.append([x_circulo,y_circulo])
-    return arreglo
+    arreglo.append([longitud + radio,latitud])
+    return [arreglo]
 
 '''
 input: poligono
@@ -141,6 +142,3 @@ print(muertos(habi_tota, supe_inte, supe_pais))
 # dibuja los tres poligonos (el de prueba, el circuilo generado y la interseccion)
 dibuja_3(p1,p2,p3)
 '''
-
-
-# print(genera_circulo_2(5))

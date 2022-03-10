@@ -23,13 +23,14 @@ async function postapi() {
             type: "Feature",
             properties: {
                 info: "llego este paquete del fron?",
-                color: "blue"
+                color: "blue",
+                radio:"10"
             },
             geometry: {
                 type: "Point",
                 coordinates: [
-                    -4.0801699437494736,
-                    8.71055162951536
+                    -10.1801699437494736,
+                    9.82055162951536
                 ]
             }
         }
