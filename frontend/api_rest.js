@@ -48,7 +48,7 @@ async function postapi(api_url_django,formData) {
     const value = Object.fromEntries(formData.entries());
     let xx={
         method: 'post',
-        body: JSON.stringify(formData)
+        body: JSON.stringify(value)
     }
     let respo = await fetch(api_url_django, xx);
     let data_json = await respo.json();
