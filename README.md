@@ -128,10 +128,10 @@ modificarlo para que sea como uno de los anteriores y podamos homologenizar la c
 ### tipos de properties
 ```json
 "properties": {
-		"color": "blue", <->
-		"info": "es otro punto", <->
-		"radio":"10", ->
-		"mensaje":"para señalizacion" <-
+		"color": "blue",               <->
+		"info": "es otro punto",       <->
+		"mensaje":"para señalizacion", <-
+		"bomba": "tipo de bomba"        ->
 	},
 ```
 (buscar la referencia oficial de la estructura geojson)

@@ -1,4 +1,5 @@
 
+from ctypes.wintypes import HPALETTE
 import json
 from urllib import request
 from django.http import HttpResponse, JsonResponse
@@ -41,22 +42,35 @@ class Vista(View):
         return JsonResponse(thisdict)
 
     def post(self,request):
-
         dictEntrada = json.loads(request.body)
+        
+        print(dictEntrada["longitud"])
+        print(dictEntrada["latitud"])
 
-        print("ahora haremos que le point del cliente se convierta en un circulo")
-
+        ##############################
+        # tipo de bomba
+        ##############################
+        r_destruccion = 0
+        r_radiacion = 0
+        a = "big bomb" # dictEntrada['properties']['bomba']
+        if(a == "big bomb"):
+            r_destruccion = 2
+            r_radiacion = 8
+        elif (a =="medium bomb"):
+            r_destruccion = 10
+            r_radiacion = 20
+        
         ##############################
         # agregar radio de destrcucion
         ##############################
         circulo = genera_circulo_2(
-            dictEntrada['geometry']['coordinates'][0],
-            dictEntrada['geometry']['coordinates'][1],
-            int(dictEntrada['properties']['radio']))
+            float(dictEntrada["latitud"]),
+            float(dictEntrada["longitud"]),
+            r_destruccion)
 
         Geometria.objects.create(
             class_info = 'generado por punto del cliente', 
-            class_color = 'green', 
+            class_color = 'red', 
             class_coordinates = circulo,
             class_type = 'Polygon'
             )
@@ -64,13 +78,13 @@ class Vista(View):
         # agregar radio de radiacion
         ##############################
         circulo = genera_circulo_2(
-            dictEntrada['geometry']['coordinates'][0],
-            dictEntrada['geometry']['coordinates'][1],
-            2)
+            float(dictEntrada["latitud"]),
+            float(dictEntrada["longitud"]),
+            r_radiacion)
 
         Geometria.objects.create(
             class_info = 'generado por punto del cliente', 
-            class_color = 'red', 
+            class_color = 'yellow', 
             class_coordinates = circulo,
             class_type = 'Polygon'
             )
@@ -79,12 +93,16 @@ class Vista(View):
         # agregar punto ingresado por usuario
         ##############################
         Geometria.objects.create(
-            class_info = dictEntrada['properties']['info'], 
-            class_color = dictEntrada['properties']['color'], 
-            class_coordinates = dictEntrada['geometry']['coordinates'],
-            class_type = dictEntrada['geometry']['type']
-            )
-        
+            class_info = "si info",# dictEntrada['properties']['info'], 
+            class_color = "blue", # dictEntrada['properties']['color'], 
+            class_coordinates = [ float(dictEntrada["longitud"]), float(dictEntrada["latitud"]) ],
+            #dictEntrada['geometry']['coordinates'],
+            class_type = "Point"#dictEntrada['geometry']['type']
+        )
+
+        ##############################
+        # respuesta al cliente
+        ##############################
         respuesta = {
 	        "type": "Feature",
 	            "properties": {
@@ -92,7 +110,7 @@ class Vista(View):
 	        }
         }   
 
-        return JsonResponse(respuesta)
+        return JsonResponse(dictEntrada)
 
 
     def delete(self,request):

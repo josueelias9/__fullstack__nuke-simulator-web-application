@@ -13,7 +13,7 @@ async function getapi() {
 }
 // Calling that async function
 
-async function postapi() {
+async function povstapi() {
     data = {
         method: 'POST',
         headers: {
@@ -24,7 +24,7 @@ async function postapi() {
             properties: {
                 info: "llego este paquete del fron?",
                 color: "blue",
-                radio:"10"
+                bomba:"medium bomb"
             },
             geometry: {
                 type: "Point",
@@ -38,7 +38,7 @@ async function postapi() {
     }
     let respo = await fetch("http://127.0.0.1:8000/aplicacion/casa/", data);
     let data_json = await respo.json();
-    console.log(data_json);
+    console.log(data_json["type"]);
 }
 
-postapi();
+//postapi();

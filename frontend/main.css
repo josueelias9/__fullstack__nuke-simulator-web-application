@@ -3,6 +3,8 @@
        * element that contains the map. */
        #map {
         height: 50%;
+        margin: 10px;
+        padding: 10px;
       }
       
       /* Optional: Makes the sample page fill the window. */
@@ -11,17 +13,24 @@
         height: 100%;
         margin: 0;
         padding: 0;
-      }
+      }     
 
-
-      
-
-.titulo_1{
+.contenedor_1{
   background-color: cornflowerblue;
   text-align: center;
+  margin: 10px;
+  padding: 10px;
   
 }
 
-.titulo_2{
+.contenedor_2{
   background-color: rgb(198, 204, 216);
+  margin: 10px;
+  padding: 10px;
+}
+
+.contenedor_3{
+  background-color: crimson;
+  margin: 10px;
+  padding: 10px;
 }
