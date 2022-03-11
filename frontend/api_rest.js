@@ -1,11 +1,10 @@
 
-// api url
 
 // Defining async function
-async function getapi() {
+async function getapi(api_url_django) {
 
     // Storing response
-    let response = await fetch("http://127.0.0.1:8000/aplicacion/casa/");
+    let response = await fetch(api_url_django);
     // Storing data in form of JSON
     let data_json = await response.json();
 
@@ -42,3 +41,17 @@ async function povstapi() {
 }
 
 //postapi();
+
+
+async function postapi(api_url_django,formData) {
+    
+    const value = Object.fromEntries(formData.entries());
+    let xx={
+        method: 'post',
+        body: JSON.stringify(formData)
+    }
+    let respo = await fetch(api_url_django, xx);
+    let data_json = await respo.json();
+    console.log(data_json);
+}
+

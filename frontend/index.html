@@ -52,24 +52,8 @@
         myForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-
-
-            const value = Object.fromEntries(formData.entries());
-            console.log(value["longitud"]);
-            
-            postapi({
-                method: 'post',
-                body: JSON.stringify(value)
-            })
+            postapi("http://127.0.0.1:8000/aplicacion/casa/",formData)            
         });
-
-
-
-        async function postapi(xx) {
-            let respo = await fetch("http://127.0.0.1:8000/aplicacion/casa/", xx);
-            let data_json = await respo.json();
-            //console.log(data_json);
-        }
 
     </script>
     <div id="map"></div>
