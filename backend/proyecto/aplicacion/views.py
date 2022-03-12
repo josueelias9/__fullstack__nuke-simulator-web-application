@@ -44,9 +44,6 @@ class Vista(View):
     def post(self,request):
         dictEntrada = json.loads(request.body)
         
-        print(dictEntrada["longitud"])
-        print(dictEntrada["latitud"])
-
         ##############################
         # tipo de bomba
         ##############################
@@ -109,9 +106,8 @@ class Vista(View):
 		        "mensaje": "Tudu ven! "
 	        }
         }   
-
+        print(type(JsonResponse(dictEntrada)))
         return JsonResponse(dictEntrada)
-
 
     def delete(self,request):
         Geometria.objects.filter(id=7).delete()
@@ -123,12 +119,7 @@ class Vista(View):
         }   
         return JsonResponse(respuesta)
 
-    def put(self,request, id):
-        Geometria.objects.filter(id=432).update(class_info="nombre")
-        respuesta = {
-	        "type": "Feature",
-	            "properties": {
-		        "mensaje": "se hizo el update! "
-	        }
-        }   
-        return JsonResponse(respuesta)
+    def put(self,request, *args, **kwargs):
+         
+        return JsonResponse({})
+

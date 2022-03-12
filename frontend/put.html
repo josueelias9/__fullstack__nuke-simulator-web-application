@@ -52,6 +52,8 @@
     </div>
     <div class="contenedor_3">
         <form class="form" id="myForm">
+            <label for="id">id</label>
+            <input type="id" name="id" id="id" value="533">
             <label for="longitud">longitud</label>
             <input type="text" name="longitud" id="longitud" value="-77.0282400">
             <label for="latitud">latitud</label>
@@ -68,7 +70,7 @@
         myForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-            postapi(direccion_url, formData).then(() => {
+            putapi(direccion_url, formData).then(() => {
 
 
                 map.data.loadGeoJson(direccion_url);

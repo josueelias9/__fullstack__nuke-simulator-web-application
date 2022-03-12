@@ -3,7 +3,8 @@
 async function getapi(api_url_django) {
     let response = await fetch(api_url_django);
     let data_json = await response.json();
-    console.log(data_json["features"][2]["geometry"]["coordinates"]);
+    console.log(data_json) // borrar esta linea despues
+    return data_json;
 }
 
 async function povstapi() {
@@ -46,11 +47,21 @@ async function postapi(api_url_django,formData) {
     }
     let respo = await fetch(api_url_django, xx);
     let data_json = await respo.json();
-    console.log(data_json);
+    console.log(data_json) // borrar esta linea despues
+    return data_json;
 }
 
 
 
-async function updateapi(api_url_django){
+async function putapi(api_url_django,formData){
+    const value = Object.fromEntries(formData.entries());
+    let objeto_json={
+        method:'put',
+        body: JSON.stringify(value)
+    }
+    let respuesta =await fetch(api_url_django,objeto_json);
+    let data_json = await respuesta.json();
 
+    console.log(data_json) // borrar esta linea despues
+    return data_json;
 }

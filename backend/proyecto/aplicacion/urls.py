@@ -17,4 +17,5 @@ from django.urls import path
 from aplicacion.views import Vista
 urlpatterns = [
     path('casa/',Vista.as_view() ,name='casa'),
+    path('casa/<int:id>/',Vista.as_view() ,name='casa'),
 ]

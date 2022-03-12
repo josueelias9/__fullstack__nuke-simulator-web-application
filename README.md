@@ -23,8 +23,6 @@ el orden seria el siguiente:
 ------------- = -----------------
 # total de h.        # muertos
 ```
-# avance
-## 2022-03-11
 # documentacion
 - la forma de comunicacion es a traves de archivos json
 - tener en cuenta tambien que el formato es geojson
@@ -135,6 +133,14 @@ asi comentamos el codigo en el back
 	},
 ```
 (buscar la referencia oficial de la estructura geojson)
+## comunicacion 2
+### funcion del frontend
+- cuando hace GET, solo usa fecth para traer info. La funcion devuelve el response como tipo [object](https://www.w3schools.com/js/js_objects.asp).
+- cuando es POST, el output es lo mismo que en get. El input es un tipo FomrData.
+
+### funciones del backend
+- GET, POST, PUT y DELETE reciben _request_. En _request.body_ se encuentra el json entregado por el back en formato binario (_<class 'bytes'>_).
+- Todas devuelven _JsonResponse(respuesta)_ que es de tipo _<class 'django.http.response.JsonResponse'>_. _respuesta_ es un diccionario Python
 
 # hacer funcionar
 ## set
