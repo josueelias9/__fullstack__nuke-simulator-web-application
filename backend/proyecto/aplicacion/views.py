@@ -1,7 +1,7 @@
 
 from ctypes.wintypes import HPALETTE
 import json
-from urllib import request
+from urllib import request, response
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views import View
@@ -116,6 +116,19 @@ class Vista(View):
     def delete(self,request):
         Geometria.objects.filter(id=7).delete()
         respuesta = {
-            "mensaje": "Se borro :o"
-        }
+	        "type": "Feature",
+	            "properties": {
+		        "mensaje": "se borro! "
+	        }
+        }   
+        return JsonResponse(respuesta)
+
+    def put(self,request, id):
+        Geometria.objects.filter(id=432).update(class_info="nombre")
+        respuesta = {
+	        "type": "Feature",
+	            "properties": {
+		        "mensaje": "se hizo el update! "
+	        }
+        }   
         return JsonResponse(respuesta)

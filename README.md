@@ -1,7 +1,7 @@
 # simulador de bombas
  ¿quieres ver cuantos moririan?
 
-# division
+# funcionamiento alto nivel
 ## front
 Las entradas son:
 - solo da un punto geografico
@@ -23,26 +23,28 @@ el orden seria el siguiente:
 ------------- = -----------------
 # total de h.        # muertos
 ```
-
-# informacion
+# avance
+## 2022-03-11
+# documentacion
+- la forma de comunicacion es a traves de archivos json
+- tener en cuenta tambien que el formato es geojson
+- django entrega el feature collection completo de la base de datos
+- en el back estara toda la infomacion. Si se quiere se ejecutara algo ene le view pero deber terminar el el db
+## documentacion de codigo
 asi comentamos el codigo en el back
 ```python
 # ========================================================
 # PRUEBA DE MODULO
 # ========================================================
 ```
-# 2022-03-10
-- la forma de comunicacion es a traves de archivos json
-- tener en cuenta tambien que el formato es geojson
-- django entrega el feature collection completo de la base de datos
-- en el back estara toda la infomacion. Si se quiere se ejecutara algo ene le view pero deber terminar el el db
+
 ## flujo de comunicacion en json
 ```
-+-----+                     +-----+             +-----+ 
-|     |       tipo_f        |     |             |     | 
-|front|         --->        |back |    --->     |db   | 
-|     |         <---        |     |    <---     |     | 
-+-----+  tipo_fc / tipo_m   +-----+             +-----+ 
++-----+                 +-----+             +-----+ 
+|     |     tipo_f      |     |             |     | 
+|front|      --->       |back |    --->     |db   | 
+|     |      <---       |     |    <---     |     | 
++-----+     tipo_fc     +-----+             +-----+ 
 ```
 
 - tipo_fc: feature colection completro
@@ -123,8 +125,6 @@ asi comentamos el codigo en el back
 	}
 }   
 ```
-- tipo_m
-modificarlo para que sea como uno de los anteriores y podamos homologenizar la comunucacions
 ### tipos de properties
 ```json
 "properties": {
@@ -147,28 +147,22 @@ cd (carpeta proyecto)/simulador-de-bombas/backend/proyecto
 python3 manage.py runserver
 ```
 ## usuario envia datos del punto
-ir a _api_rest.js_ y modificar las coordenadas. Luego aplicar post y listo. 
-```json
-geometry: {
-    type: "Point",
-    coordinates: [
-        -10.1801699437494736,
-        9.82055162951536
-    ]
-}
-```
-## modificar base de datos
-hacerlo atraves de la consola de django (por el momento)
-
+Interactuar con la GUI
 # estructura del proyecto
 ```
 |-- simulador-de-bombas
-    |-- backend
-        |-- env
-        |-- proyecto
-        |-- requirements
-    |-- frontend
+    |-- README.md (documentacion)
+	|-- frontend
         |-- api_rest.js (definicion de funciones get, post para comunicacion con URL para la API)
         |-- google_api.js (codigo para mostrar la informacion de la bd en el front)
-    |-- README.md (documentacion)
+	|-- backend
+        |-- requirements.txt
+		|-- env
+        |-- proyecto
+            |-- aplicacion
+			    |-- calculation.py (modulo creado por nosotros)
 ```
+
+# referencia 
+
+En el siguiente [link](https://developer.mozilla.org/en-US/docs/Web/API/fetch) se habla sobre el metodo fetch.

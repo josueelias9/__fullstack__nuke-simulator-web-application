@@ -16,5 +16,5 @@ Including another URLconf
 from django.urls import path
 from aplicacion.views import Vista
 urlpatterns = [
-    path('casa/',Vista.as_view() ,name='casa')
+    path('casa/',Vista.as_view() ,name='casa'),
 ]

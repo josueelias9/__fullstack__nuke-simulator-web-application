@@ -1,16 +1,10 @@
 
 
-// Defining async function
 async function getapi(api_url_django) {
-
-    // Storing response
     let response = await fetch(api_url_django);
-    // Storing data in form of JSON
     let data_json = await response.json();
-
     console.log(data_json["features"][2]["geometry"]["coordinates"]);
 }
-// Calling that async function
 
 async function povstapi() {
     data = {
@@ -40,7 +34,7 @@ async function povstapi() {
     console.log(data_json["type"]);
 }
 
-//postapi();
+
 
 
 async function postapi(api_url_django,formData) {
@@ -55,3 +49,8 @@ async function postapi(api_url_django,formData) {
     console.log(data_json);
 }
 
+
+
+async function updateapi(api_url_django){
+
+}
