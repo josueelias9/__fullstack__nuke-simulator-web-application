@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Data Layer: Styling</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+
+    <script src="google_api.js"></script>
+    <script src="api_rest.js"></script>
+
+</head>
+
+<body>
+    <div class="contenedor_1">
+        <h1>Proyecto</h1>
+    </div>
+    <div class="contenedor_2">
+        <p>
+        <h3>Bomba de uranio</h3>
+        <p>En este caso, a una masa de uranio, llamada "subcrítica", se le añade una cantidad del mismo elemento
+            químico para conseguir una "masa crítica" que comienza a fisionar por sí misma. </p>
+        <h3>Bomba de plutonio</h3>
+        <p>Artículo principal: Bomba de plutonio
+            El arma de plutonio tiene un diseño más complicado. </p>
+        <h3>Bomba de hidrógeno o termonuclear</h3>
+        <p> Explosión de la bomba termonuclear Ivy Mike (1 de noviembre de 1952). Las bombas termonucleares se han
+            convertido en las armas más destructivas de la historia, siendo varias veces más poderosas que las bombas
+            nucleares de Hiroshima y Nagasaki. </p>
+        <h3>Bombas de neutrones</h3>
+        <p>Detonación de una bomba atómica el 15 de abril de 1948 en el atolón de Eniwetok, concretamente la prueba
+            X-Ray comprendida en la Operación Sandstone.</p>
+
+        <table>
+            <tr>
+                <th>Capital</th>
+                <th>Longitud</th>
+                <th>Latitud</th>
+            </tr>
+            <tr>
+                <td>Lima</td>
+                <td>-77.0282400</td>
+                <td>-12.0431800</td>
+            </tr>
+            <tr>
+                <td>Brasil</td>
+                <td>-15.77972</td>
+                <td>-47.92972</td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="contenedor_3">
+        <form class="form" id="myForm">
+            <label for="id">id</label>
+            <input type="text" name="id" id="id" value="461">
+            <label for="longitud">longitud</label>
+            <input type="text" name="longitud" id="longitud" value="-77.0282400">
+            <label for="latitud">latitud</label>
+            <input type="text" name="latitud" id="latitud" value="-12.0431800">
+            <button type="submit">Simular</button>
+        </form>
+    </div>
+    <script>
+        const myForm = document.getElementById("myForm");
+        myForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            putapi("http://127.0.0.1:8000/aplicacion/casa/", formData).then(() => {
+
+
+                map.data.loadGeoJson("http://127.0.0.1:8000/aplicacion/casa/");
+
+                map.data.setStyle((feature) => {
+                    return {
+                        fillColor: feature.getProperty("color"),
+                        strokeWeight: 1,
+                    };
+                });
+
+            });
+
+        });
+
+    </script>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGgSj0uh5_yPn4ZcLpxaK5H-llGvmvxEI&callback=initMap&v=weekly"
+        async></script>
+</body>
+
+</html>

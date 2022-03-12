@@ -123,8 +123,9 @@ class Vista(View):
         }   
         return JsonResponse(respuesta)
 
-    def put(self,request, id):
-        Geometria.objects.filter(id=432).update(class_info="nombre")
+    def put(self,request):
+        hola= json.loads(request.body)
+        Geometria.objects.filter(id=hola["id"]).update(class_info="oeoeoeoeoe")
         respuesta = {
 	        "type": "Feature",
 	            "properties": {
