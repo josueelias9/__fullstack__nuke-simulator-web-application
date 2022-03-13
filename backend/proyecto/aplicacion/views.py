@@ -102,7 +102,7 @@ class Vista(View):
         ##############################
         respuesta = {
 	        "type": "Feature",
-	            "properties": {
+            "properties": {
 		        "mensaje": "Tudu ven! "
 	        }
         }   
@@ -113,7 +113,7 @@ class Vista(View):
         Geometria.objects.filter(id=7).delete()
         respuesta = {
 	        "type": "Feature",
-	            "properties": {
+            "properties": {
 		        "mensaje": "se borro! "
 	        }
         }   
@@ -121,12 +121,26 @@ class Vista(View):
 
     def put(self,request, *args, **kwargs):
         hola=json.loads(request.body)
-        print(hola)
+        #print(hola)
         if(len(Geometria.objects.filter(id="1")) == 0):
             Geometria.objects.create(id=1, class_type="Point",   class_coordinates=[-77.0282400,-12.0431800])
+        elif(len(Geometria.objects.filter(id="2")) == 0):
             Geometria.objects.create(id=2, class_type="Polygon", class_color="red", class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
+        elif(len(Geometria.objects.filter(id="3")) == 0):
             Geometria.objects.create(id=3, class_type="Polygon", class_color="yellow",class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
+        elif(len(Geometria.objects.filter(id="4")) == 0):
+            Geometria.objects.create(id=4, class_type="Polygon", class_color="green",class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
         else:
+            if(hola["properties"]["bomba"] == "termo"):
+                print("ya fuimos")
+                radio_radiacion=10
+                radio_destruccion=4
+            elif (hola["properties"]["bomba"] == "neutro"):
+                radio_radiacion=20
+                radio_destruccion=6
+            else:
+                radio_radiacion=2
+                radio_destruccion=1
             ##############################
             # actualiza punto
             ##############################
@@ -136,23 +150,44 @@ class Vista(View):
                 class_coordinates=[ a,b ]
                 )
             ##############################
-            # actualiza circulo
+            # actualiza circulo de destruccion
             ##############################
-            circulo = genera_circulo_2(a,b,5)
+            circulo_d = genera_circulo_2(a,b,radio_destruccion)
             Geometria.objects.filter(id=2).update(
-                class_coordinates=circulo
+                class_coordinates=circulo_d
                 )
             ##############################
-            # actualiza circulo
+            # actualiza circulo de radiacion
             ##############################
-            circulo = genera_circulo_2(a,b,10)
+            circulo_r = genera_circulo_2(a,b,radio_radiacion)
             Geometria.objects.filter(id=3).update(
-                class_coordinates=circulo
+                class_coordinates=circulo_r
                 )
+            ##############################
+            # calculando muertos
+            ##############################
+            geo = json.loads(Geometria.objects.filter(id=540).get().class_coordinates)
+            p_list_1 = conversor_poligonoGoogle_a_poligonoShapely(geo[0])
+            p_list_2 = conversor_poligonoGoogle_a_poligonoShapely(circulo_d[0])
+            p_1 = lista_a_poligono(p_list_1)
+            p_2 = lista_a_poligono(p_list_2)
+            inter = interseccion(p_1,p_2)
+            #print(inter)
+            mi_lista = poligono_a_lista_shapely(inter)
+            salida = conversor_poligonoShapely_a_poligonoGoogle(mi_lista)
+            print([salida])
+            ##############################
+            # actualizar interseccion
+            ##############################
+            Geometria.objects.filter(id=4).update(
+                class_coordinates=[salida]
+            )
+
+            
 
         respuesta = {
 	        "type": "Feature",
-	            "properties": {
+            "properties": {
 		        "mensaje": "se hizo update! "
 	        }
         }

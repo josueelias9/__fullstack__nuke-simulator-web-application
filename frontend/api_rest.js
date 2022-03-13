@@ -29,7 +29,8 @@ async function putapi(api_url_django, formData) {
         type: "Feature",
         properties: {
             color: "",
-            info: ""
+            info: "",
+            bomba: value["bomba"]
         },
         geometry: {
             type: "",
