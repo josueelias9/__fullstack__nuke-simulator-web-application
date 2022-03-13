@@ -16,7 +16,7 @@
         <h1>Proyecto</h1>
     </div>
     <div class="contenedor_2">
-        <p>
+        <h2>tipos de bombas</h2>
         <h3>Bomba de uranio</h3>
         <p>En este caso, a una masa de uranio, llamada "subcrítica", se le añade una cantidad del mismo elemento
             químico para conseguir una "masa crítica" que comienza a fisionar por sí misma. </p>
@@ -31,24 +31,51 @@
         <p>Detonación de una bomba atómica el 15 de abril de 1948 en el atolón de Eniwetok, concretamente la prueba
             X-Ray comprendida en la Operación Sandstone.</p>
 
-        <table>
+        <h2>ejemplos</h2>
+
+        <table border=5>
             <tr>
-                <th>Capital</th>
+                <th>Pais</th>
                 <th>Longitud</th>
                 <th>Latitud</th>
+                <th>Poblacion</th>
+
             </tr>
             <tr>
-                <td>Lima</td>
+                <td>Peru</td>
                 <td>-77.0282400</td>
                 <td>-12.0431800</td>
+                <td>32.97 millones</td>
             </tr>
             <tr>
                 <td>Brasil</td>
                 <td>-47.92972</td>
                 <td>-15.77972</td>
+                <td>212.6 millones</td>
             </tr>
         </table>
 
+        <h2>referencia</h2>
+        <table border="5">
+            <tr>
+                <td align="center"></td>
+                <td align="center">mayor latitud</td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center">menos longitud</td>
+                <td align="center">punto</td>
+                <td align="center">mas longitud</td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td align="center">menor latitud</td>
+                <td align="center"></td>
+            </tr>
+        </table>
+        <h2>poner</h2>
+        <li>termo</li>
+        <li>neutro</li>
     </div>
     <div class="contenedor_3">
         <form class="form" id="myForm">
@@ -60,9 +87,21 @@
             <input type="text" name="latitud" id="latitud" value="-12.0431800">
             <button type="submit">Simular</button>
         </form>
+        Murio el <h1 id="muertos">muertos</h1> porciento de la poblacion
+
     </div>
     <div id="map"></div>
 
+    <div class="contenedor_2">
+        referencias
+        <li> Bomba de neutrones <a href="https://es.wikipedia.org/wiki/Bomba_de_neutrones">link</a></li>
+        <li> Bomba termonuclear <a
+                href="https://www.dw.com/es/la-diferencia-entre-la-bomba-at%C3%B3mica-y-la-termonuclear/a-40382627">link</a>
+        </li>
+        <li>Poblacion Peru <a
+                href="https://www.google.com/search?q=poblacion+peru&oq=poblacion+peru&aqs=chrome..69i57j0i512l9.2517j1j7&sourceid=chrome&ie=UTF-8">link</a></a>
+        </li>
+    </div>
     <script>
 
         let direccion_url = "http://127.0.0.1:8000/aplicacion/casa/";
@@ -71,13 +110,10 @@
             e.preventDefault();
             const formData = new FormData(this);
             putapi(direccion_url, formData).then(() => {
-
                 map.data.forEach(function (feature) {
                     map.data.remove(feature);
                 });
                 map.data.loadGeoJson(direccion_url);
-
-
             });
 
         });

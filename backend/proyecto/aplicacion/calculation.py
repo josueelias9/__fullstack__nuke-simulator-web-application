@@ -9,13 +9,13 @@ poligono_de_prueba = Polygon([(0, 5), (1, 1), (3, 0), (4, 6),(0, 5)])
 numero_de_lados_del_circulo = 20
 
 # ========================================================================
-# funciones poligonos
-'''
-MACRO: En general las funciones:
-
-input: numero / poligono / lista
-output: numero / poligono / lista / boleano
-'''
+# FUNCIONES POLIGONOS
+# 
+# Este grupo de funciones tiene las siguientes entradas y salidas:
+# 
+# input: numero / poligono / lista
+# output: numero / poligono / lista / boleano
+# 
 # ========================================================================
 
 '''
@@ -113,13 +113,13 @@ def poligono_a_lista_shapely(poli):
     
 
 # ========================================================================
-# funciones otros
-'''
-MACRO: En general las funciones:
-
-input: numero / list
-output: numero / list
-'''
+# FUNCIONES OTROS
+# 
+# Este grupo de funciones tiene las siguientes entradas y salidas:
+# 
+# input: numero / list
+# output: numero / list
+# 
 # ========================================================================
 
 '''

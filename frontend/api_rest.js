@@ -43,7 +43,8 @@ async function putapi(api_url_django, formData) {
     }
     let respuesta = await fetch(api_url_django, objeto_json);
     let data_json = await respuesta.json();
-
+    muertito=Math.round(data_json["properties"]["muertos"]*100/32970000);
+    document.getElementById("muertos").innerHTML=muertito;
     return data_json;
 
 }

@@ -121,6 +121,7 @@ class Vista(View):
         return JsonResponse(respuesta)
 
     def put(self,request, *args, **kwargs):
+        muer = 0
         hola=json.loads(request.body)
         #print(hola)
         if(len(Geometria.objects.filter(id="1")) == 0): # punto
@@ -151,22 +152,21 @@ class Vista(View):
                 class_strokeWeight = 4)
         else:
             if(hola["properties"]["bomba"] == "termo"):
-                print("ya fuimos")
                 radio_radiacion=10
                 radio_destruccion=4
             elif (hola["properties"]["bomba"] == "neutro"):
                 radio_radiacion=20
-                radio_destruccion=6
+                radio_destruccion=10
             else:
                 radio_radiacion=2
                 radio_destruccion=1
             ##############################
             # actualiza punto
             ##############################
-            a = float(hola['geometry']['coordinates'][1])
             b = float(hola['geometry']['coordinates'][0])
+            a = float(hola['geometry']['coordinates'][1])
             Geometria.objects.filter(id=1).update(
-                class_coordinates=[ a,b ]
+                class_coordinates=[ b,a ]
                 )
             ##############################
             # actualiza circulo de destruccion
@@ -183,7 +183,7 @@ class Vista(View):
                 class_coordinates=circulo_r
                 )
             ##############################
-            # calculando muertos
+            # calculando interseccion
             ##############################
             geo = json.loads(Geometria.objects.filter(id=5).get().class_coordinates)
             p_list_1 = conversor_poligonoGoogle_a_poligonoShapely(geo[0])
@@ -191,23 +191,21 @@ class Vista(View):
             p_1 = lista_a_poligono(p_list_1)
             p_2 = lista_a_poligono(p_list_2)
             inter = interseccion(p_1,p_2)
-            #print(inter)
             mi_lista = poligono_a_lista_shapely(inter)
             salida = conversor_poligonoShapely_a_poligonoGoogle(mi_lista)
-            print([salida])
-            ##############################
-            # actualizar interseccion
-            ##############################
             Geometria.objects.filter(id=4).update(
                 class_coordinates=[salida]
             )
-
-            
+            ##############################
+            # calculando muertos
+            ##############################
+            muer = muertos(32970000,area(inter),area(p_1))
 
         respuesta = {
 	        "type": "Feature",
             "properties": {
-		        "mensaje": "se hizo update! "
+		        "mensaje": "se hizo update! ",
+                "muertos": muer
 	        }
         }
         return JsonResponse(respuesta)

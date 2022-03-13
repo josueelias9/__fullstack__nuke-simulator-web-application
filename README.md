@@ -1,8 +1,6 @@
 # simulador de bombas
- ¿quieres ver cuantos moririan?
-
+Alcance: Este desarrollo web ayuda a determinar cual seria el impacto en vidas humanas de explotar una bomba dentro o fuera del territorio peruano. 
 ![](demo.png)
-
 # funcionamiento alto nivel
 ## front
 Las entradas son:
@@ -31,20 +29,30 @@ el orden seria el siguiente:
 - django entrega el feature collection completo de la base de datos
 - en el back estara toda la infomacion. Si se quiere se ejecutara algo ene le view pero deber terminar el el db
 ## documentacion de codigo
-asi comentamos el codigo en el back
+En el back se comenta el codigo de dos formas. La primera es cuando es informacion neta del programa:
 ```python
-# ========================================================
-# PRUEBA DE MODULO
-# ========================================================
+# ========================================================================
+# TITULO EN MAYUSCUOLA
+# comentario 1
+# comentario 2
+# ...
+# ========================================================================
+```
+y la segunda es cuando en realidad es codigo comentado temporalemente, como por ejemplo, codigo testing
+```python
+'''
+# TITULO DEL BLOQUE
+lo que quieras sin el "#" 
+'''
 ```
 
 ## flujo de comunicacion en json
 ```
-+-----+                 +-----+             +-----+ 
-|     |     tipo_f      |     |             |     | 
-|front|      --->       |back |    --->     |db   | 
-|     |      <---       |     |    <---     |     | 
-+-----+     tipo_fc     +-----+             +-----+ 
++-----+                        +-----+             +-----+ 
+|     |        tipo_f          |     |             |     | 
+|front|         --->           |back |    --->     |db   | 
+|     |         <---           |     |    <---     |     | 
++-----+    tipo_fc / tipo_f    +-----+             +-----+ 
 ```
 
 - tipo_fc: feature colection completro
@@ -131,21 +139,25 @@ asi comentamos el codigo en el back
 		"color": "blue",               <->
 		"info": "es otro punto",       <->
 		"mensaje":"para señalizacion", <-
-		"bomba": "tipo de bomba"        ->
+		"bomba": "tipo de bomba",       ->
+		"muertos": 1234                <-
 	},
 ```
 (buscar la referencia oficial de la estructura geojson)
-## comunicacion 2
-### funcion del frontend
-- cuando hace GET, solo usa fecth para traer info. La funcion devuelve el response como tipo [object](https://www.w3schools.com/js/js_objects.asp).
-- cuando es POST, el output es lo mismo que en get. El input es un tipo FomrData.
+## comunicacion API entre el frontend y el backend
+![](flujo.png)
+### funciones del frontend
+Son _postapi()_, _getapi()_ y _putapi()_
+- __input__: Todas reciben el url de donde van a consumir la API
+  - _post y put_: a parte del url tambien hay que entregarle un dato de tipo _FormData_ que contiene la informacion a enviar al backend.
+- __output__: todas retorna un dato tipo [object](https://www.w3schools.com/js/js_objects.asp) que contiene el json que devolvio el back como respuesta. 
 
 ### funciones del backend
-- GET, POST, PUT y DELETE reciben _request_. En _request.body_ se encuentra el json entregado por el back en formato binario (_<class 'bytes'>_).
-- Todas devuelven _JsonResponse(respuesta)_ que es de tipo _<class 'django.http.response.JsonResponse'>_. _respuesta_ es un diccionario Python
-
-# hacer funcionar
-## set
+Tener en cuenta que las funciones del backend actuan cuando les llega un request del front. Estas son: _get()_, _post()_, _put()_ y _delete()_ 
+- __input__: reciben _request_. En _request.body_ se encuentra el json entregado por el back en formato binario (_<class 'bytes'>_).
+- __output__: Todas devuelven _JsonResponse(respuesta)_ que es de tipo _<class 'django.http.response.JsonResponse'>_. _respuesta_ es un diccionario Python.
+# desplegar proyecto
+Descargar el repositorio y seguir los siguientes pasos:
 ```bash
 cd (carpeta proyecto)/simulador-de-bombas/backend
 python3 -m venv ./env
@@ -154,12 +166,15 @@ pip3 install -r requirements.txt
 cd (carpeta proyecto)/simulador-de-bombas/backend/proyecto
 python3 manage.py runserver
 ```
-## usuario envia datos del punto
-Interactuar con la GUI
+abrir _put.html_ e interactuar con el el app.
+
 # estructura del proyecto
 ```
 |-- simulador-de-bombas
-    |-- README.md (documentacion)
+    |-- flujo.mdj (flujo en UML)
+    |-- flujo.png (imagen del flujo)
+    |-- demo.png (demostracion del proyecto)
+	|-- README.md (documentacion)
 	|-- frontend
         |-- api_rest.js (definicion de funciones get, post para comunicacion con URL para la API)
         |-- google_api.js (codigo para mostrar la informacion de la bd en el front)
@@ -169,14 +184,16 @@ Interactuar con la GUI
         |-- proyecto
             |-- aplicacion
 	            |-- calculation.py (modulo creado por nosotros)
+	
 ```
 
 # referencia 
-- Metodo fetch - [link](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
+- Metodo fetch (oficial) - [link](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
 - KML de paises del mundo - [link](https://laprovence.carto.com/tables/world_country_borders_kml/public/map)
-- google map ioficial [link](https://developers.google.com/)
+- google map (oficial) - [link](https://developers.google.com/)
   - buscar “Maps Platform”
   - ir a SDK de Maps y dar click a “JS”
   - ir “Samples”
   - luego a “Layers”
   -  finalmente “Data Layer: Styling”
+- Referencia de GeoJson (oficial) - [link](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.5)
