@@ -31,7 +31,8 @@ class Vista(View):
                 "type": "Feature",
                 "properties":{
                     "color":a["class_color"],
-                    "info":a["class_info"]},
+                    "info":a["class_info"],
+                    "strokeWeight":a["class_strokeWeight"]},
                 "geometry":{
                     "type":a["class_type"],
                     "coordinates":json.loads(a["class_coordinates"])
@@ -122,14 +123,32 @@ class Vista(View):
     def put(self,request, *args, **kwargs):
         hola=json.loads(request.body)
         #print(hola)
-        if(len(Geometria.objects.filter(id="1")) == 0):
-            Geometria.objects.create(id=1, class_type="Point",   class_coordinates=[-77.0282400,-12.0431800])
-        elif(len(Geometria.objects.filter(id="2")) == 0):
-            Geometria.objects.create(id=2, class_type="Polygon", class_color="red", class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
-        elif(len(Geometria.objects.filter(id="3")) == 0):
-            Geometria.objects.create(id=3, class_type="Polygon", class_color="yellow",class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
-        elif(len(Geometria.objects.filter(id="4")) == 0):
-            Geometria.objects.create(id=4, class_type="Polygon", class_color="green",class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
+        if(len(Geometria.objects.filter(id="1")) == 0): # punto
+            Geometria.objects.create(
+                id=1, 
+                class_type="Point",   
+                class_coordinates=[-77.0282400,-12.0431800])
+        elif(len(Geometria.objects.filter(id="2")) == 0): # destruccion
+            Geometria.objects.create(
+                id=2, 
+                class_type="Polygon", 
+                class_color="red", 
+                class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]],
+                class_strokeWeight =1 )
+        elif(len(Geometria.objects.filter(id="3")) == 0): # radiacion
+            Geometria.objects.create(
+                id=3, 
+                class_type="Polygon", 
+                class_color="yellow",
+                class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]],
+                class_strokeWeight = 1)
+        elif(len(Geometria.objects.filter(id="4")) == 0): # interseccion
+            Geometria.objects.create(
+                id=4, 
+                class_type="Polygon", 
+                class_color="green",
+                class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]],
+                class_strokeWeight = 4)
         else:
             if(hola["properties"]["bomba"] == "termo"):
                 print("ya fuimos")
@@ -166,7 +185,7 @@ class Vista(View):
             ##############################
             # calculando muertos
             ##############################
-            geo = json.loads(Geometria.objects.filter(id=540).get().class_coordinates)
+            geo = json.loads(Geometria.objects.filter(id=5).get().class_coordinates)
             p_list_1 = conversor_poligonoGoogle_a_poligonoShapely(geo[0])
             p_list_2 = conversor_poligonoGoogle_a_poligonoShapely(circulo_d[0])
             p_1 = lista_a_poligono(p_list_1)

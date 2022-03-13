@@ -1,6 +1,8 @@
 # simulador de bombas
  ¿quieres ver cuantos moririan?
 
+![](demo.png)
+
 # funcionamiento alto nivel
 ## front
 Las entradas son:

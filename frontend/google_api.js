@@ -15,7 +15,7 @@ function initMap() {
   map.data.setStyle((feature) => {
     return {
       fillColor: feature.getProperty("color"),
-      strokeWeight: 1,
+      strokeWeight: feature.getProperty("strokeWeight"),
     };
   });
 }

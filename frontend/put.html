@@ -72,15 +72,11 @@
             const formData = new FormData(this);
             putapi(direccion_url, formData).then(() => {
 
-
+                map.data.forEach(function (feature) {
+                    map.data.remove(feature);
+                });
                 map.data.loadGeoJson(direccion_url);
 
-                map.data.setStyle((feature) => {
-                    return {
-                        fillColor: feature.getProperty("color"),
-                        strokeWeight: 1,
-                    };
-                });
 
             });
 

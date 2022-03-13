@@ -9,5 +9,6 @@ class Geometria(models.Model):
     class_color = models.CharField(max_length=50, default='')
     class_type = models.CharField(max_length=50, default='Point')
     class_coordinates = models.TextField(default='')
+    class_strokeWeight = models.IntegerField(default=0)
     
     
