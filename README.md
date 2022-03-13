@@ -148,7 +148,7 @@ asi comentamos el codigo en el back
 cd (carpeta proyecto)/simulador-de-bombas/backend
 python3 -m venv ./env
 source (carpeta proyecto)/simulador-de-bombas/backend/env/bin activate
-pip3 install requirements
+pip3 install -r requirements.txt
 cd (carpeta proyecto)/simulador-de-bombas/backend/proyecto
 python3 manage.py runserver
 ```
@@ -166,9 +166,15 @@ Interactuar con la GUI
 		|-- env
         |-- proyecto
             |-- aplicacion
-			    |-- calculation.py (modulo creado por nosotros)
+	            |-- calculation.py (modulo creado por nosotros)
 ```
 
 # referencia 
-
-En el siguiente [link](https://developer.mozilla.org/en-US/docs/Web/API/fetch) se habla sobre el metodo fetch.
+- Metodo fetch - [link](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
+- KML de paises del mundo - [link](https://laprovence.carto.com/tables/world_country_borders_kml/public/map)
+- google map ioficial [link](https://developers.google.com/)
+  - buscar “Maps Platform”
+  - ir a SDK de Maps y dar click a “JS”
+  - ir “Samples”
+  - luego a “Layers”
+  -  finalmente “Data Layer: Styling”

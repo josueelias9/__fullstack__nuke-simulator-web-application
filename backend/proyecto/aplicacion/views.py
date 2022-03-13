@@ -121,36 +121,40 @@ class Vista(View):
 
     def put(self,request, *args, **kwargs):
         hola=json.loads(request.body)
+        print(hola)
         if(len(Geometria.objects.filter(id="1")) == 0):
             Geometria.objects.create(id=1, class_type="Point",   class_coordinates=[-77.0282400,-12.0431800])
-            Geometria.objects.create(id=2, class_color="red", class_type="Polygon", class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
-            Geometria.objects.create(id=3, class_color="yellow",class_type="Polygon", class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
+            Geometria.objects.create(id=2, class_type="Polygon", class_color="red", class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
+            Geometria.objects.create(id=3, class_type="Polygon", class_color="yellow",class_coordinates=[[ [-77.0282400,-12.0431800], [-87.0282400,-12.0431800], [-87.0282400,-22.0431800], [-77.0282400,-12.0431800] ]])
         else:
             ##############################
             # actualiza punto
             ##############################
+            a = float(hola['geometry']['coordinates'][1])
+            b = float(hola['geometry']['coordinates'][0])
             Geometria.objects.filter(id=1).update(
-                class_coordinates=[ float(hola["longitud"]), float(hola["latitud"]) ]
+                class_coordinates=[ a,b ]
                 )
             ##############################
             # actualiza circulo
             ##############################
-            circulo = genera_circulo_2(
-            float(hola["latitud"]),
-            float(hola["longitud"]),
-            5)
+            circulo = genera_circulo_2(a,b,5)
             Geometria.objects.filter(id=2).update(
                 class_coordinates=circulo
                 )
             ##############################
             # actualiza circulo
             ##############################
-            circulo = genera_circulo_2(
-            float(hola["latitud"]),
-            float(hola["longitud"]),
-            10)
+            circulo = genera_circulo_2(a,b,10)
             Geometria.objects.filter(id=3).update(
                 class_coordinates=circulo
                 )
-        return JsonResponse(hola)
+
+        respuesta = {
+	        "type": "Feature",
+	            "properties": {
+		        "mensaje": "se hizo update! "
+	        }
+        }
+        return JsonResponse(respuesta)
 
